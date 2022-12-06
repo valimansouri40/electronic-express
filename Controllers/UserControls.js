@@ -1,4 +1,4 @@
-const {catchAsync} = require("../Utils/catchAsync");
+const catchAsync = require("../Utils/catchAsync");
 const User =require('../Models/UserModels');
 const jwt = require('jsonwebtoken');
 const {promisify} = require('util')
@@ -21,12 +21,11 @@ const createANDSendJWTToken = (user, res, status, message)=>{
 exports.CreateUser = catchAsync(async(req, res, next)=>{
 
     const userLng = 0
-    
+    console.log(req.body)
     if(userLng === 0){
         req.body.role = 'admin'
     }else{
         req.body.role = 'user'
-        
     }
     const user = await User.create(req.body);
 
@@ -70,7 +69,7 @@ exports.Login = catchAsync(async(req, res)=>{
 exports.Protected = catchAsync(async(req, res, next)=>{
         let token;
         // ''.startsWith
-        // console.log(req.headers.authorization)
+        console.log(req.headers.authorization)
         if(req.headers.authorization && 
             req.headers.authorization.startsWith('Bearer')){
             token = req.headers.authorization.split(' ')[1]
@@ -87,19 +86,20 @@ exports.Protected = catchAsync(async(req, res, next)=>{
         if(!user) throw('there is no such user');
 
         req.user = user;
+        console.log('admin')
         next();
 })
 
 
-exports.ResterictTo = role => catchAsync((req, res, next)=>{
+exports.ResterictTo = role => (req, res, next)=>{
 
-            // console.log(req.user, role);
+            console.log(req.user, role);
             if(role !== req.user.role){
                 throw('you are not an admin');
             }
 
             next();
-});
+};
 
 exports.getUserData = catchAsync((req, res)=>{
 

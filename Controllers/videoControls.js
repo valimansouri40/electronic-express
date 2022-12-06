@@ -1,7 +1,7 @@
 const sharp = require('sharp');
 const Category = require('../Models/CategoryModel');
 const Video = require('../Models/videoModels');
-const {catchAsync} = require('../Utils/catchAsync');
+const catchAsync = require('../Utils/catchAsync');
 const factory = require('./factoryHandller');
 
 
@@ -31,5 +31,5 @@ exports.createVideo = factory.craeteModel(Video);
 exports.getAllVideo = factory.findAllModels(Video);
 exports.getVideoById = factory.findModelById(Video);
 exports.updateVideoById = factory.findModelByIdAndUpdate(Video);
-exports.deleteVideoById = factory.findModelById(Video);
+exports.deleteVideoById = factory.deleteModelById(Video);
 

@@ -1,5 +1,5 @@
 const apiFeature = require("../Utils/apiFeature");
-const {catchAsync} = require("../Utils/catchAsync");
+const catchAsync = require("../Utils/catchAsync");
 const fs = require('fs');
 // const {promisify} = require('util');
 // const jwt = require('jsonwebtoken');
@@ -73,12 +73,13 @@ exports.findModelByIdAndUpdate = Model => catchAsync(async (req, res, next)=>{
 
 exports.deleteModelById = Model => catchAsync(async (req, res, next)=>{
     const param = req.params.id;
-
+    console.log(param)
     await Model.findByIdAndDelete(param);
     // User.findByIdAndUpdate
     res.status(200).json({
         status: true,
-        message: 'با موفقیت حذف شد'
+        message: 'با موفقیت حذف شد',
+        reload: true
     })
 });
 
