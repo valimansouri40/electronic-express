@@ -1,6 +1,6 @@
 const apiFeature = require("../Utils/apiFeature");
 const catchAsync = require("../Utils/catchAsync");
-const fs = require('fs');
+// const fs = require('fs');
 // const {promisify} = require('util');
 // const jwt = require('jsonwebtoken');
 

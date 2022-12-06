@@ -6,6 +6,10 @@ const {authRouter, videoRouter,
 
 const app = express();
 
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+  });
+
 app.use(express.urlencoded({extended:true, limit:'10mb'}))
 app.use(express.json({limit:'10mb'}))
 app.use(cors());
