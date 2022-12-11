@@ -11,9 +11,9 @@ const videoSchema = new mongoose.Schema({
     },
     description:{
         type: String,
-        required: [true, 'not enterd'],
-        minlength: 3,
-        maxlength: 350
+        required: [true, 'not enterd des'],
+        // minlength: 3,
+        // maxlength: 12850
     },
     price:{
         type: Number,
@@ -50,7 +50,7 @@ const videoSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        required: [true, 'not enterd'],
+        required: [true, 'not enterd status'],
         enum:['free', 'money']
         },
     createAt:{

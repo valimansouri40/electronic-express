@@ -6,8 +6,9 @@ const factory = require('./factoryHandller');
 
 
 exports.resizeAndSaveImage = catchAsync(async (req, res ,next)=>{
-    req.body.categoryName = (await Category.findById(req.body.categoryId)).name
-    if(!req.body.imageCover?.startsWith('data:image/jpeg;base64,')) return next();
+    req.body.categoryName = (await Category.findById(req.body.categoryId)).name;
+    
+    if(!req.body.imageCover?.startsWith('data:image/')) return next();
         
         const imageCover = req.body.imageCover.split(';base64,').pop();
         const convertTobuffer = Buffer.from(imageCover, 'base64');
@@ -27,7 +28,16 @@ exports.resizeAndSaveImage = catchAsync(async (req, res ,next)=>{
     next();
 })
 
-exports.createVideo = factory.craeteModel(Video);
+exports.createVideo = catchAsync(async(req,res,next)=>{
+    const create =  await Model.create(req.body).catch(er=>{
+        return next(new AppError('Incorrect email or password', 200));
+        //    throw('error')
+       });
+        res.status(200).json({
+            status: true,
+            message: 'با موفقیت انجام شد'
+        })
+});
 exports.getAllVideo = factory.findAllModels(Video);
 exports.getVideoById = factory.findModelById(Video);
 exports.updateVideoById = factory.findModelByIdAndUpdate(Video);
