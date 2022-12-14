@@ -14,13 +14,14 @@ const createANDSendJWTToken = (user, res, status, message)=>{
             res.status(status).json({
                 status: true,
                 message: message,
-                token: Token
+                token: Token,
+                user: user
             })
 }
 
 exports.CreateUser = catchAsync(async(req, res, next)=>{
 
-    const userLng = 0
+    const userLng = (await User.find().skip(1).limit(10)).length;
     console.log(req.body)
     if(userLng === 0){
         req.body.role = 'admin'
@@ -93,7 +94,7 @@ exports.Protected = catchAsync(async(req, res, next)=>{
 
 exports.ResterictTo = role => (req, res, next)=>{
 
-            console.log(req.user, role);
+            // console.log(req.user, role);
             if(role !== req.user.role){
                 throw('you are not an admin');
             }

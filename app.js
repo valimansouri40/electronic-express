@@ -12,6 +12,9 @@ const globalErrorHandler = require('./Controllers/errorControls');
 
 const app = express();
 
+
+app.use(express.static('Public/img'))
+
 app.get("/", (req, res) => {
   try{
 
@@ -26,9 +29,9 @@ app.get("/", (req, res) => {
   app.use(helmet());
 
   // Development logging
-  if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   app.use(morgan('dev'));
+  // }
   
   // Limit requests from same API
   const limiter = rateLimit({
@@ -49,7 +52,6 @@ app.use(express.json({limit:'10mb'}))
 app.use(cors());
 
 
-app.use(express.static('Public/img'))
 
 app.use((req, res , next)=>{
     

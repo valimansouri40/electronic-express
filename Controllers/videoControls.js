@@ -29,7 +29,7 @@ exports.resizeAndSaveImage = catchAsync(async (req, res ,next)=>{
 })
 
 exports.createVideo = catchAsync(async(req,res,next)=>{
-    const create =  await Model.create(req.body).catch(er=>{
+    const create =  await Video.create(req.body).catch(er=>{
         return next(new AppError('Incorrect email or password', 200));
         //    throw('error')
        });

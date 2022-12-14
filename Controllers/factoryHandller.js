@@ -1,7 +1,7 @@
 const apiFeature = require("../Utils/apiFeature");
 const AppError = require("../Utils/appError");
 const catchAsync = require("../Utils/catchAsync");
-// const fs = require('fs');
+const fs = require('fs');
 // const {promisify} = require('util');
 // const jwt = require('jsonwebtoken');
 
@@ -53,7 +53,7 @@ exports.findModelById = Model => catchAsync(async (req, res, next)=>{
 
 exports.findModelByIdAndUpdate = Model => catchAsync(async (req, res, next)=>{
     const param = req.params.id;
-    // console.log(req.body,param)
+    console.log(req.body)
     const findModel = await Model.findByIdAndUpdate(param,req.body);
     // console.log(Model)
     res.status(200).json({
@@ -65,7 +65,13 @@ exports.findModelByIdAndUpdate = Model => catchAsync(async (req, res, next)=>{
 
 exports.deleteModelById = Model => catchAsync(async (req, res, next)=>{
     const param = req.params.id;
-    console.log(param)
+    console.log(param, req.query)
+    
+    if(req.query.path === 'video'){
+        const video = await Model.findById(param);
+        fs.existsSync('Public/img/' + video.imageCover) && fs.unlinkSync('Public/img/' + video.imageCover);
+    }
+
     await Model.findByIdAndDelete(param);
     // User.findByIdAndUpdate
     res.status(200).json({

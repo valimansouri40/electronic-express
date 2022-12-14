@@ -11,7 +11,7 @@ videoRouter.route('/').get(video.getAllVideo).post(Protected, ResterictTo('admin
 
 
 videoRouter.route('/:id').get(video.getVideoById)
-.patch(Protected,ResterictTo('admin') , video.updateVideoById)
+.patch(Protected,ResterictTo('admin') , video.resizeAndSaveImage ,video.updateVideoById)
 .delete(Protected, ResterictTo('admin'), video.deleteVideoById)
 
 module.exports = videoRouter;
