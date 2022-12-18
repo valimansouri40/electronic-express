@@ -8,14 +8,15 @@ const createJwtToken = (id)=> jwt.sign({id}, process.env.JWT_SECRET_KEY,
         expiresIn: process.env.EXPIRES_JWT
     });
 
-const createANDSendJWTToken = (user, res, status, message)=>{
+const createANDSendJWTToken =async (user, res, status, message)=>{
            const Token = createJwtToken(user._id);
-            // console.log(Token)
+            // console.log(user)
+            const UserData= await User.findById(user._id) 
             res.status(status).json({
                 status: true,
                 message: message,
                 token: Token,
-                user: user
+                user: UserData
             })
 }
 
